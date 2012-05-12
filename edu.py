@@ -1,16 +1,17 @@
 # -*- coding: utf8 -*-
+# python3
 
-from httplib import HTTPConnection 
-from HTMLParser import HTMLParser
+from http.client import HTTPConnection 
+from html.parser import HTMLParser
 from xml.dom.minidom import parseString
 
 import re, json, datetime, os, sys, time
 from xml.etree.ElementTree import ElementTree
-from StringIO import StringIO
+from io import StringIO
 
 from multiprocessing import Process, current_process, freeze_support
-from BaseHTTPServer import HTTPServer
-from SimpleHTTPServer import SimpleHTTPRequestHandler
+from http.server import HTTPServer
+from http.server import SimpleHTTPRequestHandler
 
 import sqlite3
 import logging
@@ -108,7 +109,7 @@ class PageConn():
 		a = self.web_conn.getresponse().read()
 		return self.parse(a)
 	def parse_teachers(self,s):
-		s = str(remove_html_tags(s)).decode('utf-8')
+		s = remove_html_tags(s)
 		s = re.sub(r'\([^)]*\)', '', s)
 		s = s.split(', ')
 		s.reverse()
@@ -122,7 +123,7 @@ class PageConn():
 		if content is None:
 			return
 		_log.debug('PageConn: parse()')
-		line = [ l.strip("\n\r\t") for l in content.splitlines() ]
+		line = [ u.strip("\n\r\t") for u in str(content, encoding='utf-8').splitlines() ]
 		date = None
 		teachers = None
 		n = ''
