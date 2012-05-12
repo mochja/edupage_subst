@@ -27,9 +27,6 @@ def create_logger():
 
 _log = create_logger()
 
-def note(format, *args):
-	return
-
 def remove_html_tags(data):
 	p = re.compile(r'(<th(.*)</th>| align=center|<(/?)(font|p|a|b)(.*?)>)')
 	return p.sub('', data)
@@ -223,10 +220,6 @@ class ClassroomEncoder(json.JSONEncoder):
 			}
 		return json.JSONEncoder.default(obj)
 
-
-#print json.dumps(manager, cls=ClassroomEncoder, indent=4, sort_keys=True)
-#parseString(res)
-
 def json_encode(obj):
 	return json.dumps(obj, cls=ClassroomEncoder, indent=4, sort_keys=True, ensure_ascii=False)
 
@@ -268,18 +261,3 @@ def run_server():
 if __name__ == '__main__':
 	freeze_support()
 	run_server()
-#r = re.compile(r'subst_div2*')
-
-#print r.match(res)
-
-#t.write(res)
-#t.close()
-#exit()
-
-#doc = parseString(res)
-
-
-#old
-
-#exit()
-
